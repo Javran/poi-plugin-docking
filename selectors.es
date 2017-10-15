@@ -81,6 +81,7 @@ const getShipDetailFuncSelectorS0 = createSelector(
         now: ship.api_nowhp,
         max: ship.api_maxhp,
       }
+      hp.rate = hp.now / hp.max
       const level = ship.api_lv
       const docking = {
         time: ship.api_ndock_time,
@@ -147,16 +148,39 @@ const anchorageCoverageSelector = createSelector(
   }
 )
 
+const expedShipIdsSelector = createSelector(
+  fleetsSelector,
+  fleets => {
+    if (!Array.isArray(fleets))
+      return []
+    return _.flatMap(
+      fleets,
+      fleet => {
+        if (!('api_mission' in fleet) || !Array.isArray(fleet.api_mission))
+          return []
+        if (fleet.api_mission === 0)
+          return []
+        return fleet.api_ship.filter(rId => rId > 0)
+      }
+    )
+  }
+)
+
 const getShipDetailFuncSelector = createSelector(
   getShipDetailFuncSelectorS0,
   anchorageCoverageSelector,
-  (getShipDetailS0, ac) => _.memoize(
+  expedShipIdsSelector,
+  (getShipDetailS0, ac, es) => _.memoize(
     rstId => {
       const info = getShipDetailS0(rstId)
       if (_.isEmpty(info))
         return null
 
-      return {...info, anchorage: ac.includes(rstId)}
+      return {
+        ...info,
+        anchorage: ac.includes(rstId),
+        expedition: es.includes(rstId),
+      }
     }
   )
 )

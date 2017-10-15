@@ -159,10 +159,25 @@ class DockingMainImpl extends PureComponent {
                           {s.name}
                         </span>
                         {
+                          /*
+                             mutual exclusive icons for indicating situations
+                             related to repairing:
+
+                             - "bath" icon: the ship in question is docking
+                             - "compass" icon: cannot dock the ship
+                               due to an ongoing expedition
+                             - "repair facility" icon: the ship is being anchorage-repaired
+
+                           */
                           s.docking.ongoing ? (
                             <FontAwesome
                               className="icon"
                               name="bath"
+                            />
+                          ) : s.expedition ? (
+                            <FontAwesome
+                              className="icon"
+                              name="compass"
                             />
                           ) : s.anchorage ? (
                             <SlotitemIcon
