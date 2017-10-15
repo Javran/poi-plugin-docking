@@ -7,7 +7,11 @@ import FontAwesome from 'react-fontawesome'
 
 import { SlotitemIcon } from 'views/components/etc/icon'
 
-import { nfShipDetailListSelector } from '../../selectors'
+import {
+  sortSelector,
+  simpleSelector,
+  nfShipDetailListSelector,
+} from '../../selectors'
 import { PTyp } from '../../ptyp'
 
 const colors = {
@@ -32,7 +36,6 @@ const doPad = v => _.padStart(String(v),2,'0')
 
 const pprTime = ms => {
   const [hour,minute,second] = splitTime(ms)
-
   return [hour,minute,second].map(doPad).join(':')
 }
 
@@ -47,10 +50,12 @@ const pprTimeCompact = ms => {
 class DockingTableImpl extends PureComponent {
   static propTypes = {
     shipList: PTyp.array.isRequired,
+    sort: PTyp.object.isRequired,
+    simple: PTyp.bool.isRequired,
   }
 
   render() {
-    const {shipList} = this.props
+    const {shipList, simple} = this.props
     const cellStyle = {
       verticalAlign: 'middle',
       padding: '5px .5em',
@@ -62,30 +67,43 @@ class DockingTableImpl extends PureComponent {
         striped bordered condensed hover>
         <thead>
           <tr>
-            <td
-              style={{
-                width: '3em',
-              }}
-            >Id
-            </td>
-            <td
-              style={{
-                width: '4.2em',
-              }}
-            >
-              Type
-            </td>
+            {
+              !simple && (
+                <td
+                  style={{
+                    width: '3em',
+                  }}
+                >
+                  Id
+                </td>
+              )
+            }
+            {
+              !simple && (
+                <td
+                  style={{
+                    width: '4.2em',
+                  }}
+                >
+                  Type
+                </td>
+              )
+            }
             <td>Name</td>
+            {
+              !simple && (
+                <td
+                  style={{
+                    width: '2.2em',
+                  }}
+                >
+                  Lv.
+                </td>
+              )
+            }
             <td
               style={{
-                width: '2.2em',
-              }}
-            >
-              Lv.
-            </td>
-            <td
-              style={{
-                width: '4.5em',
+                width: simple ? '25%' : '4.5em',
                 textAlign: 'center',
               }}
             >
@@ -93,20 +111,24 @@ class DockingTableImpl extends PureComponent {
             </td>
             <td
               style={{
-                width: '4.5em',
+                width: simple ? '30%' : '4.5em',
                 textAlign: 'center',
               }}
             >
               Time
             </td>
-            <td
-              style={{
-                width: '4.2em',
-                textAlign: 'center',
-              }}
-            >
-              T/HP
-            </td>
+            {
+              !simple && (
+                <td
+                  style={{
+                    width: '4.2em',
+                    textAlign: 'center',
+                  }}
+                >
+                  T/HP
+                </td>
+              )
+            }
           </tr>
         </thead>
         <tbody>
@@ -117,25 +139,33 @@ class DockingTableImpl extends PureComponent {
               const perHpBold = s.docking.perHp >= 60*20
               return (
                 <tr key={s.rstId}>
-                  <td
-                    style={{
-                      ...cellStyle,
-                      fontSize: '80%',
-                    }}
-                  >
-                    {s.rstId}
-                  </td>
-                  <td
-                    style={{
-                      ...cellStyle,
-                      fontSize: '80%',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                    }}
-                  >
-                    {s.typeName}
-                  </td>
+                  {
+                    !simple && (
+                      <td
+                        style={{
+                          ...cellStyle,
+                          fontSize: '80%',
+                        }}
+                      >
+                        {s.rstId}
+                      </td>
+                    )
+                  }
+                  {
+                    !simple && (
+                      <td
+                        style={{
+                          ...cellStyle,
+                          fontSize: '80%',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        {s.typeName}
+                      </td>
+                    )
+                  }
                   <td
                     style={{
                       ...cellStyle,
@@ -189,15 +219,19 @@ class DockingTableImpl extends PureComponent {
                       }
                     </div>
                   </td>
-                  <td
-                    style={{
-                      ...cellStyle,
-                      textAlign: 'center',
-                      fontSize: '80%',
-                    }}
-                  >
-                    {s.level}
-                  </td>
+                  {
+                    !simple && (
+                      <td
+                        style={{
+                          ...cellStyle,
+                          textAlign: 'center',
+                          fontSize: '80%',
+                        }}
+                      >
+                        {s.level}
+                      </td>
+                    )
+                  }
                   <td
                     style={{
                       ...cellStyle,
@@ -244,17 +278,21 @@ class DockingTableImpl extends PureComponent {
                   >
                     {timeDesc}
                   </td>
-                  <td
-                    style={{
-                      ...cellStyle,
-                      fontSize: '90%',
-                      textAlign: 'center',
-                      padding: 0,
-                      ...(perHpBold ? {fontWeight: 'bold'} : {}),
-                    }}
-                  >
-                    {perHpDesc}
-                  </td>
+                  {
+                    !simple && (
+                      <td
+                        style={{
+                          ...cellStyle,
+                          fontSize: '90%',
+                          textAlign: 'center',
+                          padding: 0,
+                          ...(perHpBold ? {fontWeight: 'bold'} : {}),
+                        }}
+                      >
+                        {perHpDesc}
+                      </td>
+                    )
+                  }
                 </tr>
               )
             })
@@ -268,6 +306,8 @@ class DockingTableImpl extends PureComponent {
 const DockingTable = connect(
   createStructuredSelector({
     shipList: nfShipDetailListSelector,
+    sort: sortSelector,
+    simple: simpleSelector,
   })
 )(DockingTableImpl)
 

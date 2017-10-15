@@ -6,7 +6,7 @@ import { store } from 'views/create-store'
 
 const initState = {
   /*
-     (TODO) simple layout: has less columns,
+     simple layout: has less columns,
      works better if there isn't enough space for the plugin
    */
   simple: false,
