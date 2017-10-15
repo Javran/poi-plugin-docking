@@ -159,7 +159,7 @@ class DockingTableImpl extends PureComponent {
                     textAlign: 'center',
                   }}
                 >
-                  {this.renderHeader('per-hp','T/HP')}
+                  {this.renderHeader('per-hp','/HP')}
                 </td>
               )
             }
