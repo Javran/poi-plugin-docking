@@ -10,6 +10,7 @@ import {
 } from 'views/utils/selectors'
 
 import { initState } from './store'
+import { sortToFunc } from './sorter'
 
 const extSelector = createSelector(
   extensionSelectorFactory('poi-plugin-docking'),
@@ -215,11 +216,19 @@ const nfShipDetailListSelector = createSelector(
     _.compact(rstIds.map(getShipDetail))
 )
 
+const sortedNfShipDetailListSelector = createSelector(
+  nfShipDetailListSelector,
+  sortSelector,
+  (xs, sort) =>
+    sortToFunc(sort)(xs)
+)
+
 export {
   extSelector,
   readySelector,
   simpleSelector,
   sortSelector,
-  nfShipDetailListSelector,
+
+  sortedNfShipDetailListSelector,
   anchorageCoverageSelector,
 }

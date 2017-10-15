@@ -10,7 +10,7 @@ import { SlotitemIcon } from 'views/components/etc/icon'
 import {
   sortSelector,
   simpleSelector,
-  nfShipDetailListSelector,
+  sortedNfShipDetailListSelector,
 } from '../../selectors'
 import { PTyp } from '../../ptyp'
 import { mapDispatchToProps } from '../../store'
@@ -339,7 +339,7 @@ class DockingTableImpl extends PureComponent {
 
 const DockingTable = connect(
   createStructuredSelector({
-    shipList: nfShipDetailListSelector,
+    shipList: sortedNfShipDetailListSelector,
     sort: sortSelector,
     simple: simpleSelector,
   }),

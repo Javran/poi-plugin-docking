@@ -1,18 +1,66 @@
+import _ from 'lodash'
+import {
+  projectorToComparator,
+  chainComparators,
+  flipComparator,
+} from 'subtender'
+
 const sortMethods = []
 const sorters = {}
 
-const defineSorter = (name, desc, getter=null, ascending=true) => {
-  sorters[name] = {name, desc, getter, ascending}
+const defineSorter = (name, desc, comparator='Comparator missing', ascending=true) => {
+  sorters[name] = {name, desc, comparator, ascending}
   sortMethods.push(name)
 }
 
-defineSorter('rid', 'Id')
-defineSorter('type', 'Type')
-defineSorter('name', 'Name')
-defineSorter('level', 'Level', undefined, false)
-defineSorter('hp-rate', 'HP')
-defineSorter('dtime', 'Docking Time', undefined, false)
-defineSorter('per-hp', 'Time per HP', undefined, false)
+const rosterIdComparator = projectorToComparator(x => x.rstId)
+
+const inGameLevelComparator =
+  chainComparators(
+    flipComparator(projectorToComparator(x => x.level)),
+    projectorToComparator(x => x.sortNo),
+    rosterIdComparator)
+
+const inGameShipTypeComparator =
+  chainComparators(
+    flipComparator(projectorToComparator(x => x.stype)),
+    projectorToComparator(x => x.sortNo),
+    flipComparator(projectorToComparator(x => x.level)),
+    rosterIdComparator)
+
+defineSorter('rid', 'Id', rosterIdComparator,)
+defineSorter('type', 'Type', inGameShipTypeComparator)
+defineSorter(
+  'name', 'Name',
+  chainComparators(
+    projectorToComparator(x => x.name),
+    rosterIdComparator
+  )
+)
+defineSorter('level', 'Level', inGameLevelComparator, false)
+defineSorter(
+  'hp-rate', 'HP',
+  chainComparators(
+    projectorToComparator(x => x.hp.rate),
+    rosterIdComparator
+  )
+)
+defineSorter(
+  'dtime', 'Docking Time',
+  chainComparators(
+    flipComparator(projectorToComparator(x => x.docking.time)),
+    rosterIdComparator
+  ),
+  false
+)
+defineSorter(
+  'per-hp', 'Time per HP',
+  chainComparators(
+    flipComparator(projectorToComparator(x => x.docking.perHp)),
+    rosterIdComparator
+  ),
+  false
+)
 
 const sortToDir = ({method, reverse}) => {
   const info = sorters[method]
@@ -26,9 +74,19 @@ const sortDescribe = sort => {
   return `${sortInfo.desc} ${sortToDir(sort) === 'asc' ? '↑' : '↓'}`
 }
 
+const sortToFunc = ({method, reverse}) => {
+  const info = sorters[method]
+  const mayReverse = reverse ? xs => xs.reverse() : _.identity
+  return _.flow(
+    xs => xs.sort(info.comparator),
+    mayReverse
+  )
+}
+
 export {
   sorters,
   sortToDir,
   sortDescribe,
   sortMethods,
+  sortToFunc,
 }
