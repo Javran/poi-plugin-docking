@@ -1,4 +1,5 @@
 import { DockingMain as reactClass } from './ui'
+import { reducer } from './store'
 
 const switchPluginPath = [
   {
@@ -8,6 +9,7 @@ const switchPluginPath = [
 ]
 
 export {
+  reducer,
   reactClass,
   switchPluginPath,
 }
