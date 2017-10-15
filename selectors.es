@@ -182,7 +182,7 @@ const expedShipIdsSelector = createSelector(
       fleet => {
         if (!('api_mission' in fleet) || !Array.isArray(fleet.api_mission))
           return []
-        if (fleet.api_mission === 0)
+        if (fleet.api_mission[0] === 0)
           return []
         return fleet.api_ship.filter(rId => rId > 0)
       }
@@ -199,7 +199,6 @@ const getShipDetailFuncSelector = createSelector(
       const info = getShipDetailS0(rstId)
       if (_.isEmpty(info))
         return null
-
       return {
         ...info,
         anchorage: ac.includes(rstId),

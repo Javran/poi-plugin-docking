@@ -2,7 +2,7 @@ import { ensureDirSync, readJsonSync, writeJsonSync } from 'fs-extra'
 import { join } from 'path-extra'
 
 const stateToPState = ({simple, sort}) => ({
-  $dataVersion: 'initial',
+  $dataVersion: '0.0.1',
   simple, sort,
 })
 
@@ -23,7 +23,7 @@ const savePState = pState => {
 }
 
 const updatePState = oldPState => {
-  if (oldPState.$dataVersion === 'initial')
+  if (oldPState.$dataVersion === '0.0.1')
     return oldPState
   throw new Error('failed to update the config')
 }
