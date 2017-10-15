@@ -1,4 +1,8 @@
+import _ from 'lodash'
+import { bindActionCreators } from 'redux'
 import { mkSimpleReducer } from 'subtender'
+
+import { store } from 'views/create-store'
 
 const initState = {
   /*
@@ -13,8 +17,8 @@ const initState = {
   },
 }
 
-const tyModify = '@@poi-plugin-docking@Modify'
-const tyReady = '@@poi-plugin-docking@Ready'
+const tyModify = '@poi-plugin-docking@Modify'
+const tyReady = '@poi-plugin-docking@Ready'
 
 const reducer = mkSimpleReducer(
   initState,
@@ -22,6 +26,27 @@ const reducer = mkSimpleReducer(
   tyReady
 )
 
+const actionCreators = {
+  ready: newState => ({
+    type: tyReady,
+    newState,
+  }),
+  modify: modifier => ({
+    type: tyModify,
+    modifier,
+  }),
+}
+
+const mapDispatchToProps = _.memoize(dispatch =>
+  bindActionCreators(actionCreators, dispatch))
+
+const withBoundActionCreators = (func, dispatch=store.dispatch) =>
+  func(mapDispatchToProps(dispatch))
+
 export {
+  initState,
   reducer,
+  actionCreators,
+  mapDispatchToProps,
+  withBoundActionCreators,
 }

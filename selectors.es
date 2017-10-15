@@ -6,7 +6,20 @@ import {
   repairsSelector,
   fleetsSelector,
   equipsSelector,
+  extensionSelectorFactory,
 } from 'views/utils/selectors'
+
+import { initState } from './store'
+
+const extSelector = createSelector(
+  extensionSelectorFactory('poi-plugin-docking'),
+  ext => _.isEmpty(ext) ? initState : ext
+)
+
+const readySelector = createSelector(
+  extSelector,
+  ext => ext.ready
+)
 
 // reference: http://kancolle.wikia.com/wiki/Docking
 /* eslint-disable indent */
@@ -193,6 +206,8 @@ const nfShipDetailListSelector = createSelector(
 )
 
 export {
+  extSelector,
+  readySelector,
   nfShipDetailListSelector,
   anchorageCoverageSelector,
 }
