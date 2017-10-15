@@ -1,0 +1,22 @@
+{
+  "Plugin" : {
+    "Name": "入渠概覽",
+    "Desc": "入渠概覽"
+  },
+  "Simple": "簡化",
+  "Headers": {
+    "Type": "艦種",
+    "Name": "艦名",
+    "Time": "時長"
+  },
+  "SortBy": "排序: %s",
+  "SorterDesc": {
+    "rid": "Id",
+    "type": "艦種",
+    "name": "艦名",
+    "level": "等級",
+    "hp-rate": "HP",
+    "dtime": "時長",
+    "per-hp": "單位回覆時長"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "Plugin" : {
+    "Name": "Docking",
+    "Desc": "Docking Overview"
+  },
+  "Simple": "Simple",
+  "Headers": {
+    "Type": "Type",
+    "Name": "Name",
+    "Time": "Time"
+  },
+  "SortBy": "Sort by %s",
+  "SorterDesc": {
+    "rid": "Id",
+    "type": "Type",
+    "name": "Name",
+    "level": "Level",
+    "hp-rate": "HP",
+    "dtime": "Docking Time",
+    "per-hp": "Time per HP"
+  }
+}

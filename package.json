@@ -20,8 +20,8 @@
   },
   "license": "MIT",
   "poiPlugin": {
-    "name": "Docking",
-    "description": "Docking Overview",
+    "name": "Plugin.Name",
+    "description": "Plugin.Desc",
     "priority": 14,
     "icon": "bath"
   },

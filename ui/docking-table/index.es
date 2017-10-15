@@ -15,6 +15,7 @@ import {
 import { PTyp } from '../../ptyp'
 import { mapDispatchToProps } from '../../store'
 import { sortToDir } from '../../sorter'
+import { __ } from '../../tr'
 
 const colors = {
   full: '#4CAF50',
@@ -117,12 +118,12 @@ class DockingTableImpl extends PureComponent {
                     width: '4.2em',
                   }}
                 >
-                  {this.renderHeader('type','Type')}
+                  {this.renderHeader('type',__('Headers.Type'))}
                 </td>
               )
             }
             <td>
-              {this.renderHeader('name','Name')}
+              {this.renderHeader('name',__('Headers.Name'))}
             </td>
             {
               !simple && (
@@ -149,7 +150,7 @@ class DockingTableImpl extends PureComponent {
                 textAlign: 'center',
               }}
             >
-              {this.renderHeader('dtime', 'Time')}
+              {this.renderHeader('dtime', __('Headers.Time'))}
             </td>
             {
               !simple && (

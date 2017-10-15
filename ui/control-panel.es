@@ -13,7 +13,8 @@ import { modifyObject, not } from 'subtender'
 import { PTyp } from '../ptyp'
 import { mapDispatchToProps } from '../store'
 import { simpleSelector, sortSelector } from '../selectors'
-import { sorters, sortMethods, sortDescribe } from '../sorter'
+import { sortMethods, sortDescribe } from '../sorter'
+import { __ } from '../tr'
 
 class ControlPanelImpl extends PureComponent {
   static propTypes = {
@@ -28,7 +29,7 @@ class ControlPanelImpl extends PureComponent {
 
   render() {
     const {simple, sort, sortToggle} = this.props
-    const sortDesc = sortDescribe(sort)
+    const sortDesc = sortDescribe(sort,__)
     return (
       <ButtonToolbar style={{marginBottom: 8}}>
         <Button
@@ -39,21 +40,20 @@ class ControlPanelImpl extends PureComponent {
             width: '8em',
           }}>
           <FontAwesome name={simple ? 'check-square-o' : 'square-o'} />
-          <span style={{flex: 1, marginLeft: '.5em'}}>Simple</span>
+          <span style={{flex: 1, marginLeft: '.5em'}}>{__('Simple')}</span>
         </Button>
         <DropdownButton
           onSelect={sortToggle}
           style={{marginTop: 0}}
-          title={`Sort by ${sortDesc}`}
+          title={__('SortBy',sortDesc)}
           id="plugin-docking-ctrl-sort">
           {
             sortMethods.map(name => {
-              const sorter = sorters[name]
               const isCurrent = name === sort.method
               return (
                 <MenuItem
                   key={name} eventKey={name}>
-                  {isCurrent ? sortDesc : sorter.desc}
+                  {isCurrent ? sortDesc : __(`SorterDesc.${name}`)}
                 </MenuItem>
               )
             })

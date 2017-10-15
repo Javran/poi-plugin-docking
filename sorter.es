@@ -69,9 +69,11 @@ const sortToDir = ({method, reverse}) => {
     (reverse ? 'asc' : 'desc')
 }
 
-const sortDescribe = sort => {
+const sortDescribe = (sort, __=null) => {
   const sortInfo = sorters[sort.method]
-  return `${sortInfo.desc} ${sortToDir(sort) === 'asc' ? '↑' : '↓'}`
+  const desc =
+    typeof __ === 'function' ? __(`SorterDesc.${sort.method}`) : sortInfo.desc
+  return `${desc} ${sortToDir(sort) === 'asc' ? '↑' : '↓'}`
 }
 
 const sortToFunc = ({method, reverse}) => {
