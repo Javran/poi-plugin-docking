@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { bindActionCreators } from 'redux'
-import { mkSimpleReducer } from 'subtender'
+import { mkSimpleReducer, modifyObject } from 'subtender'
 
 import { store } from 'views/create-store'
 
@@ -11,7 +11,7 @@ const initState = {
    */
   simple: false,
   sort: {
-    // valid methods: rid / type / name / level / dtime / perhp
+    // valid methods: rid / type / name / level / hp-rate / dtime / per-hp
     method: 'dtime',
     reverse: false,
   },
@@ -35,6 +35,19 @@ const actionCreators = {
     type: tyModify,
     modifier,
   }),
+  sortToggle: method =>
+    actionCreators.modify(
+      modifyObject(
+        'sort',
+        sort => {
+          if (sort.method === method) {
+            return {...sort, reverse: !sort.reverse}
+          } else {
+            return {...sort, method, reverse: false}
+          }
+        }
+      )
+    ),
 }
 
 const mapDispatchToProps = _.memoize(dispatch =>

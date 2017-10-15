@@ -21,6 +21,16 @@ const readySelector = createSelector(
   ext => ext.ready
 )
 
+const sortSelector = createSelector(
+  extSelector,
+  ext => ext.sort
+)
+
+const simpleSelector = createSelector(
+  extSelector,
+  ext => ext.simple
+)
+
 // reference: http://kancolle.wikia.com/wiki/Docking
 /* eslint-disable indent */
 const getDockingFactor = stype =>
@@ -208,6 +218,8 @@ const nfShipDetailListSelector = createSelector(
 export {
   extSelector,
   readySelector,
+  simpleSelector,
+  sortSelector,
   nfShipDetailListSelector,
   anchorageCoverageSelector,
 }
