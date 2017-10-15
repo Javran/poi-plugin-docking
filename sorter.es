@@ -12,7 +12,7 @@ defineSorter('name', 'Name')
 defineSorter('level', 'Level', undefined, false)
 defineSorter('hp-rate', 'HP')
 defineSorter('dtime', 'Docking Time', undefined, false)
-defineSorter('perhp', 'Time per HP', undefined, false)
+defineSorter('per-hp', 'Time per HP', undefined, false)
 
 const sortToDir = ({method, reverse}) => {
   const info = sorters[method]

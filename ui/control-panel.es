@@ -38,7 +38,7 @@ class ControlPanelImpl extends PureComponent {
             display: 'flex', alignItems: 'baseline',
             width: '8em',
           }}>
-          <FontAwesome name={simple ? 'square-o' : 'check-square-o'} />
+          <FontAwesome name={simple ? 'check-square-o' : 'square-o'} />
           <span style={{flex: 1, marginLeft: '.5em'}}>Simple</span>
         </Button>
         <DropdownButton

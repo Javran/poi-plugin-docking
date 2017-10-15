@@ -13,6 +13,8 @@ import {
   nfShipDetailListSelector,
 } from '../../selectors'
 import { PTyp } from '../../ptyp'
+import { mapDispatchToProps } from '../../store'
+import { sortToDir } from '../../sorter'
 
 const colors = {
   full: '#4CAF50',
@@ -52,6 +54,36 @@ class DockingTableImpl extends PureComponent {
     shipList: PTyp.array.isRequired,
     sort: PTyp.object.isRequired,
     simple: PTyp.bool.isRequired,
+    sortToggle: PTyp.func.isRequired,
+  }
+
+  handleToggleSortMethod = method => () =>
+    this.props.sortToggle(method)
+
+  renderHeader = (method, title) => {
+    const {sort} = this.props
+    const isCurrent = method === sort.method
+    const titleComponent = (
+      <span>
+        {title}
+      </span>
+    )
+    return (
+      <div
+        className={isCurrent ? 'text-primary' : ''}
+        style={{display: 'flex', alignItems: 'baseline'}}
+        onClick={this.handleToggleSortMethod(method)}>
+        {titleComponent}
+        {
+          isCurrent && method !== 'level' && (
+            <FontAwesome
+              style={{marginLeft: '.2em'}}
+              name={sortToDir(sort) === 'asc' ? 'sort-asc' : 'sort-desc'}
+            />
+          )
+        }
+      </div>
+    )
   }
 
   render() {
@@ -74,7 +106,7 @@ class DockingTableImpl extends PureComponent {
                     width: '3em',
                   }}
                 >
-                  Id
+                  {this.renderHeader('rid','Id')}
                 </td>
               )
             }
@@ -85,11 +117,13 @@ class DockingTableImpl extends PureComponent {
                     width: '4.2em',
                   }}
                 >
-                  Type
+                  {this.renderHeader('type','Type')}
                 </td>
               )
             }
-            <td>Name</td>
+            <td>
+              {this.renderHeader('name','Name')}
+            </td>
             {
               !simple && (
                 <td
@@ -97,7 +131,7 @@ class DockingTableImpl extends PureComponent {
                     width: '2.2em',
                   }}
                 >
-                  Lv.
+                  {this.renderHeader('level','Lv.')}
                 </td>
               )
             }
@@ -107,7 +141,7 @@ class DockingTableImpl extends PureComponent {
                 textAlign: 'center',
               }}
             >
-              HP
+              {this.renderHeader('hp-rate', 'HP')}
             </td>
             <td
               style={{
@@ -115,7 +149,7 @@ class DockingTableImpl extends PureComponent {
                 textAlign: 'center',
               }}
             >
-              Time
+              {this.renderHeader('dtime', 'Time')}
             </td>
             {
               !simple && (
@@ -125,7 +159,7 @@ class DockingTableImpl extends PureComponent {
                     textAlign: 'center',
                   }}
                 >
-                  T/HP
+                  {this.renderHeader('per-hp','T/HP')}
                 </td>
               )
             }
@@ -308,7 +342,8 @@ const DockingTable = connect(
     shipList: nfShipDetailListSelector,
     sort: sortSelector,
     simple: simpleSelector,
-  })
+  }),
+  mapDispatchToProps,
 )(DockingTableImpl)
 
 export {
