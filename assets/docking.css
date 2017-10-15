@@ -1,0 +1,12 @@
+#poi-plugin-docking .docking-table .icon,
+#poi-plugin-docking .docking-table .slotitem-img.svg {
+    width: 1.2em;
+    height: 1.2em;
+}
+
+#poi-plugin-docking .docking-table .slotitem-img.png {
+    width: 1.6em;
+    height: 1.6em;
+    margin-bottom: -.4em;
+    margin-top: -.4em;
+}

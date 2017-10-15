@@ -1,9 +1,12 @@
 import _ from 'lodash'
+import { join } from 'path-extra'
 import { createStructuredSelector } from 'reselect'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Table } from 'react-bootstrap'
 import FontAwesome from 'react-fontawesome'
+
+import { SlotitemIcon } from 'views/components/etc/icon'
 
 import { nfShipDetailListSelector } from '../selectors'
 import { PTyp } from '../ptyp'
@@ -57,7 +60,12 @@ class DockingMainImpl extends PureComponent {
       <div
         style={{margin: 8}}
       >
+        <link
+          rel="stylesheet"
+          href={join(__dirname, '..', 'assets', 'docking.css')}
+        />
         <Table
+          className="docking-table"
           style={{tableLayout: 'fixed'}}
           striped bordered condensed hover>
           <thead>
@@ -139,34 +147,40 @@ class DockingMainImpl extends PureComponent {
                     <td
                       style={{
                         ...cellStyle,
-                        display: 'flex',
-                        alignItems: 'baseline',
                       }}
                     >
-                      <span style={{
-                        flex: 1,
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                      }}>
-                        {s.name}
-                      </span>
-                      {
-                        s.docking.ongoing && (
-                          <FontAwesome
-                            style={{marginLeft: '.2em'}}
-                            name="bath"
-                          />
-                        )
-                      }
-                      {
-                        !s.lock && (
-                          <FontAwesome
-                            style={{marginLeft: '.2em'}}
-                            name="unlock"
-                          />
-                        )
-                      }
+                      <div style={{display: 'flex', alignItems: 'center'}}>
+                        <span style={{
+                          flex: 1,
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                        }}>
+                          {s.name}
+                        </span>
+                        {
+                          s.docking.ongoing ? (
+                            <FontAwesome
+                              className="icon"
+                              name="bath"
+                            />
+                          ) : s.anchorage ? (
+                            <SlotitemIcon
+                              className="slotitem-img icon"
+                              slotitemId={26}
+                            />
+                          ) : false
+                        }
+                        {
+                          !s.lock && (
+                            <FontAwesome
+                              className="icon"
+                              style={{marginLeft: '.2em'}}
+                              name="unlock"
+                            />
+                          )
+                        }
+                      </div>
                     </td>
                     <td
                       style={{

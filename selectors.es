@@ -4,6 +4,8 @@ import {
   shipsSelector,
   constSelector,
   repairsSelector,
+  fleetsSelector,
+  equipsSelector,
 } from 'views/utils/selectors'
 
 // reference: http://kancolle.wikia.com/wiki/Docking
@@ -22,20 +24,6 @@ const computePerHp = (stype,level) => {
 
   return baseTime*getDockingFactor(stype)
 }
-
-/*
-export function getHpStyle(percent) {
-  if (percent <= 25) {
-    return 'red'
-  } else if (percent <= 50){
-    return 'orange'
-  } else if (percent <= 75){
-    return 'yellow'
-  } else {
-    return 'green'
-  }
-}
-*/
 
 const computeHealthState = (now,max) => {
   if (now === max)
@@ -72,11 +60,14 @@ const dockingShipIdsSelector = createSelector(
   }
 )
 
-const getShipDetailFuncSelector = createSelector(
+// return ship details, 'S0' means this is the "first stage",
+// we'll later append some extra info that depends on 'S0'.
+const getShipDetailFuncSelectorS0 = createSelector(
   shipsSelector,
+  equipsSelector,
   constSelector,
   dockingShipIdsSelector,
-  (ships, {$ships,$shipTypes}, dockingShipIds) => _.memoize(
+  (ships, equips, {$ships,$shipTypes}, dockingShipIds) => _.memoize(
     rstId => {
       const ship = ships[rstId]
       if (_.isEmpty(ship))
@@ -100,6 +91,13 @@ const getShipDetailFuncSelector = createSelector(
         },
         ongoing: dockingShipIds.includes(rstId),
       }
+      const equipIds =
+        [...ship.api_slot, ship.api_slot_ex].filter(
+          eRid => eRid > 0
+        ).map(eRid =>
+          equips[eRid].api_slotitem_id
+        )
+
       return {
         rstId, mstId,
         name: $ship.api_name,
@@ -108,7 +106,57 @@ const getShipDetailFuncSelector = createSelector(
         lock: Boolean(ship.api_locked),
         stype, typeName, hp, docking,
         healthState: computeHealthState(hp.now,hp.max),
+        equipIds,
       }
+    }
+  )
+)
+
+// computes an Array of ship ids who are in range of
+// anchorage repair
+const anchorageCoverageSelector = createSelector(
+  fleetsSelector,
+  getShipDetailFuncSelectorS0,
+  (fleets, getShipDetailS0) => {
+    if (!Array.isArray(fleets))
+      return []
+    const fleetShipIds = _.flatMap(
+      fleets,
+      fleet => {
+        // make sure the fleet is valid
+        if (!('api_ship' in fleet) || !Array.isArray(fleet.api_ship))
+          return []
+        // make sure the fleet has ships
+        const shipIds = fleet.api_ship.filter(rid => rid > 0)
+        return shipIds.length > 0 ? [shipIds] : []
+      }
+    )
+
+    return _.flatMap(
+      fleetShipIds,
+      shipIds => {
+        const flagship = getShipDetailS0(shipIds[0])
+        // flagship must be of type AR
+        if (!flagship || flagship.stype !== 19)
+          return []
+        const capability = 2 +
+          flagship.equipIds.filter(mstId => mstId === 86).length
+        return _.take(shipIds,capability)
+      }
+    )
+  }
+)
+
+const getShipDetailFuncSelector = createSelector(
+  getShipDetailFuncSelectorS0,
+  anchorageCoverageSelector,
+  (getShipDetailS0, ac) => _.memoize(
+    rstId => {
+      const info = getShipDetailS0(rstId)
+      if (_.isEmpty(info))
+        return null
+
+      return {...info, anchorage: ac.includes(rstId)}
     }
   )
 )
@@ -122,4 +170,5 @@ const nfShipDetailListSelector = createSelector(
 
 export {
   nfShipDetailListSelector,
+  anchorageCoverageSelector,
 }
