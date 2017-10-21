@@ -9,8 +9,8 @@ import {
   extensionSelectorFactory,
 } from 'views/utils/selectors'
 
-import { initState } from './store'
-import { sortToFunc } from './sorter'
+import { initState } from '../store'
+import { sortToFunc } from '../sorter'
 
 const extSelector = createSelector(
   extensionSelectorFactory('poi-plugin-docking'),
