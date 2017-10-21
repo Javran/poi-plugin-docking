@@ -207,12 +207,15 @@ class DockingTableImpl extends PureComponent {
                     }}
                   >
                     <div style={{display: 'flex', alignItems: 'center'}}>
-                      <span style={{
-                        flex: 1,
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                      }}>
+                      <span
+                        className={s.available ? '' : 'text-muted'}
+                        style={{
+                          flex: 1,
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                        }}
+                      >
                         {s.name}
                       </span>
                       {
