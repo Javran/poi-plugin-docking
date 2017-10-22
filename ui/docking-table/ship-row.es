@@ -54,7 +54,7 @@ class ShipRow extends PureComponent {
     const perHpDesc = pprTimeCompact(ship.docking.perHp*1000)
     const perHpBold = ship.docking.perHp >= 60*20
     return (
-      <tr>
+      <tr className={ship.available ? '' : 'text-muted'}>
         {
           !simple && (
             <td
@@ -89,7 +89,6 @@ class ShipRow extends PureComponent {
         >
           <div style={{display: 'flex', alignItems: 'center'}}>
             <span
-              className={ship.available ? '' : 'text-muted'}
               style={{
                 flex: 1,
                 textOverflow: 'ellipsis',
