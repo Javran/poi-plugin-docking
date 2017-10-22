@@ -184,9 +184,23 @@ const sortedNfShipDetailListSelector = createSelector(
     sortToFunc(sort)(xs)
 )
 
+const totalResourceCostSelector = createSelector(
+  sortedNfShipDetailListSelector,
+  nfShipDetails => {
+    // only select non-docking ships
+    const details = nfShipDetails.filter(d => !d.docking.ongoing)
+    const resourcePlus = (acc,x) => ({
+      fuel: acc.fuel + x.docking.resource.fuel,
+      steel: acc.steel + x.docking.resource.steel,
+    })
+    return details.reduce(resourcePlus, {fuel: 0, steel: 0})
+  }
+)
+
 export * from './common'
 
 export {
   sortedNfShipDetailListSelector,
   anchorageCoverageSelector,
+  totalResourceCostSelector,
 }
