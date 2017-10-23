@@ -14,6 +14,7 @@ import {
   sortSelector,
   computePerHp,
   computeHealthState,
+  fleetShipIdsSelector,
 } from './common'
 
 /*
@@ -149,14 +150,22 @@ const getShipDetailFuncSelector = createSelector(
   getShipDetailFuncSelectorS0,
   anchorageCoverageSelector,
   expedShipIdsSelector,
-  (getShipDetailS0, ac, es) => _.memoize(
+  fleetShipIdsSelector,
+  (getShipDetailS0, ac, es, fleetShipIds) => _.memoize(
     rstId => {
       const info = getShipDetailS0(rstId)
       if (_.isEmpty(info))
         return null
 
+      const fleetPair =
+        _.toPairs(fleetShipIds).find(([_k, ids]) =>
+          ids.includes(rstId))
+
+      const fleetId = fleetPair ? Number(fleetPair[0]) : null
+
       const retObj = {
         ...info,
+        fleetId,
         anchorage: ac.includes(rstId),
         expedition: es.includes(rstId),
       }
@@ -164,7 +173,6 @@ const getShipDetailFuncSelector = createSelector(
       retObj.available =
         !info.docking.ongoing &&
         !retObj.expedition
-
       return retObj
     }
   )
