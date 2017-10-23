@@ -63,11 +63,11 @@ const fleetShipIdsSelector = createSelector(
   fleetsRaw => _.fromPairs(
     _.flatMap(
       _.toPairs(fleetsRaw),
-      ([fleetIdStr, fleetRaw]) => {
+      ([_k, fleetRaw]) => {
         if (_.isEmpty(fleetRaw) || !('api_ship' in fleetRaw))
           return []
         const shipIds = fleetRaw.api_ship.filter(x => x > 0)
-        return [[fleetIdStr, shipIds]]
+        return [[fleetRaw.api_id, shipIds]]
       }
     )
   )
