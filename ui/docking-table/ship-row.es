@@ -1,3 +1,4 @@
+import { join } from 'path-extra'
 import React, { PureComponent } from 'react'
 import _ from 'lodash'
 import FontAwesome from 'react-fontawesome'
@@ -98,6 +99,15 @@ class ShipRow extends PureComponent {
             >
               {ship.name}
             </span>
+            {
+              ship.fleetId && (
+                <img
+                  style={{height: '1.1em', marginLeft: '.2em'}}
+                  alt={`/${ship.fleetId}`}
+                  src={join(__dirname,'..','..','assets','images',`fleet-${ship.fleetId}.png`)}
+                />
+              )
+            }
             {
               /*
                  mutual exclusive icons for indicating situations
