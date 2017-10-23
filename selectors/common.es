@@ -2,6 +2,7 @@ import _ from 'lodash'
 import { createSelector } from 'reselect'
 import {
   extensionSelectorFactory,
+  fleetsSelector,
 } from 'views/utils/selectors'
 
 import { initState } from '../store'
@@ -55,6 +56,23 @@ const computeHealthState = (now,max) => {
   /* eslint-enable indent */
 }
 
+// return an Object whose keys are <fleetId> and values
+// Array of masterIds
+const fleetShipIdsSelector = createSelector(
+  fleetsSelector,
+  fleetsRaw => _.fromPairs(
+    _.flatMap(
+      _.toPairs(fleetsRaw),
+      ([fleetIdStr, fleetRaw]) => {
+        if (_.isEmpty(fleetRaw) || !('api_ship' in fleetRaw))
+          return []
+        const shipIds = fleetRaw.api_ship.filter(x => x > 0)
+        return [[fleetIdStr, shipIds]]
+      }
+    )
+  )
+)
+
 export {
   extSelector,
   readySelector,
@@ -63,4 +81,5 @@ export {
   getDockingFactor,
   computePerHp,
   computeHealthState,
+  fleetShipIdsSelector,
 }
