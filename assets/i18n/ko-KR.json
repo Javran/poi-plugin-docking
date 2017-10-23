@@ -4,6 +4,7 @@
     "Desc": "Docking Overview"
   },
   "Simple": "Simple",
+  "RepairCost": "Repair Cost",
   "Headers": {
     "Type": "Type",
     "Name": "Name",

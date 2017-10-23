@@ -4,6 +4,7 @@ import { MaterialIcon } from 'views/components/etc/icon'
 
 import { PTyp } from '../ptyp'
 import { totalResourceCostSelector } from '../selectors'
+import { __ } from '../tr'
 
 class RepairCostPanelImpl extends PureComponent {
   static propTypes = {
@@ -22,7 +23,7 @@ class RepairCostPanelImpl extends PureComponent {
           marginBottom: 8,
         }}
       >
-        <span>Repair Cost:</span>
+        <span>{`${__('RepairCost')}:`}</span>
         <MaterialIcon
           materialId={1}
           className="material-icon"

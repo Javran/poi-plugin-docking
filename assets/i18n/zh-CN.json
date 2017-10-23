@@ -4,6 +4,7 @@
     "Desc": "入渠概览"
   },
   "Simple": "简化",
+  "RepairCost": "维修消耗",
   "Headers": {
     "Type": "舰种",
     "Name": "舰名",
