@@ -74,7 +74,7 @@ const getShipDetailFuncSelectorS0 = createSelector(
       }
       const equipIds =
         [...ship.api_slot, ship.api_slot_ex].filter(
-          eRid => eRid > 0
+          eRid => eRid > 0 && equips[eRid]
         ).map(eRid =>
           equips[eRid].api_slotitem_id
         )
