@@ -19,5 +19,9 @@
     "hp-rate": "HP",
     "dtime": "Docking Time",
     "per-hp": "Time per HP"
+  },
+  "Tooltip": {
+    "Time": "Time",
+    "PerHp": "Per HP"
   }
 }

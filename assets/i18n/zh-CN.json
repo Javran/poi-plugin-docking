@@ -19,5 +19,9 @@
     "hp-rate": "HP",
     "dtime": "时长",
     "per-hp": "单位回复时长"
+  },
+  "Tooltip": {
+    "Time": "总时长",
+    "PerHp": "单位时长"
   }
 }

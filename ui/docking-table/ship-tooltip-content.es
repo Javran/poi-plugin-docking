@@ -6,6 +6,7 @@ import {
 } from 'views/utils/game-utils'
 
 import { PTyp } from '../../ptyp'
+import { __ } from '../../tr'
 
 const splitTime = ms => {
   let remained = Math.floor(ms/1000)
@@ -89,11 +90,11 @@ class ShipTooltipContent extends PureComponent {
           />
         </div>
         <div style={{display: 'flex'}}>
-          <span style={{width: '30%'}}>Time</span>
+          <span style={{width: '30%'}}>{__('Tooltip.Time')}</span>
           <span style={{flex: 1}}>{pprTime(ship.docking.time)}</span>
         </div>
         <div style={{display: 'flex'}}>
-          <span style={{width: '30%'}}>Per HP</span>
+          <span style={{width: '30%'}}>{__('Tooltip.PerHp')}</span>
           <span style={{flex: 1}}>{pprTime(ship.docking.perHp*1000)}</span>
         </div>
       </div>
