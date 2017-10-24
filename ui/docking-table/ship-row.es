@@ -2,9 +2,14 @@ import { join } from 'path-extra'
 import React, { PureComponent } from 'react'
 import _ from 'lodash'
 import FontAwesome from 'react-fontawesome'
+import {
+  OverlayTrigger,
+  Tooltip,
+} from 'react-bootstrap'
 
 import { SlotitemIcon } from 'views/components/etc/icon'
 import { PTyp } from '../../ptyp'
+import { ShipTooltipContent } from './ship-tooltip-content'
 
 const colors = {
   full: '#4CAF50',
@@ -54,7 +59,7 @@ class ShipRow extends PureComponent {
     const timeDesc = pprTime(ship.docking.time)
     const perHpDesc = pprTimeCompact(ship.docking.perHp*1000)
     const perHpBold = ship.docking.perHp >= 60*20
-    return (
+    const content = (
       <tr className={ship.available ? '' : 'text-muted'}>
         {
           !simple && (
@@ -222,6 +227,23 @@ class ShipRow extends PureComponent {
           )
         }
       </tr>
+    )
+
+    return (
+      <OverlayTrigger
+        placement="bottom"
+        overlay={(
+          <Tooltip
+            className="plugin-docking-pop"
+            id={`docking-ship-tooltip-ship-${ship.rstId}`}>
+            <ShipTooltipContent
+              ship={ship}
+            />
+          </Tooltip>
+        )}
+      >
+        {content}
+      </OverlayTrigger>
     )
   }
 }

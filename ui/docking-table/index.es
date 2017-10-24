@@ -1,7 +1,9 @@
 import { createStructuredSelector } from 'reselect'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { Table } from 'react-bootstrap'
+import {
+  Table,
+} from 'react-bootstrap'
 import FontAwesome from 'react-fontawesome'
 
 import {
@@ -131,9 +133,9 @@ class DockingTableImpl extends PureComponent {
           {
             shipList.map(s => (
               <ShipRow
-                key={s.rstId}
                 simple={simple}
                 ship={s}
+                key={s.rstId}
               />
             ))
           }
