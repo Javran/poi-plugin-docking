@@ -9,7 +9,10 @@ import {
 
 import { SlotitemIcon } from 'views/components/etc/icon'
 import { PTyp } from '../../ptyp'
-import { ShipTooltipContent } from './ship-tooltip-content'
+import {
+  pprTime, pprTimeCompact,
+  ShipTooltipContent,
+} from './ship-tooltip-content'
 
 const colors = {
   full: '#4CAF50',
@@ -17,31 +20,6 @@ const colors = {
   shouha: '#FBC02D',
   chuuha: '#F57C00',
   taiha: '#D50000',
-}
-
-const splitTime = ms => {
-  let remained = Math.floor(ms/1000)
-  const hour = Math.floor(remained/3600)
-  remained -= hour*3600
-  const minute = Math.floor(remained/60)
-  remained -= minute*60
-  const second = remained
-  return [hour,minute,second]
-}
-
-const doPad = v => _.padStart(String(v),2,'0')
-
-const pprTime = ms => {
-  const [hour,minute,second] = splitTime(ms)
-  return [hour,minute,second].map(doPad).join(':')
-}
-
-const pprTimeCompact = ms => {
-  const nums = splitTime(ms)
-  while (nums.length > 1 && nums[0] === 0)
-    nums.shift()
-  const [hd, ...tl] = nums
-  return [hd, ...tl.map(doPad)].join(':')
 }
 
 class ShipRow extends PureComponent {
