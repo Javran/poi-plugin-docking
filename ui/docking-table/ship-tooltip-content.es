@@ -1,9 +1,11 @@
 import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { ProgressBar } from 'react-bootstrap'
+
 import {
   getHpStyle,
 } from 'views/utils/game-utils'
+import { MaterialIcon } from 'views/components/etc/icon'
 
 import { PTyp } from '../../ptyp'
 import { __ } from '../../tr'
@@ -96,6 +98,40 @@ class ShipTooltipContent extends PureComponent {
         <div style={{display: 'flex'}}>
           <span style={{width: '30%'}}>{__('Tooltip.PerHp')}</span>
           <span style={{flex: 1}}>{pprTime(ship.docking.perHp*1000)}</span>
+        </div>
+        <div style={{display: 'flex'}}>
+          <div
+            className="repair-cost"
+            style={{
+              flex: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <MaterialIcon
+              materialId={1}
+              className="material-icon"
+            />
+            <span
+              style={{
+                marginLeft: '.4em',
+                marginRight: '.4em',
+              }}>
+              {ship.docking.resource.fuel}
+            </span>
+            <MaterialIcon
+              materialId={3}
+              className="material-icon"
+            />
+            <span
+              style={{
+                marginLeft: '.4em',
+                marginRight: '.4em',
+              }}>
+              {ship.docking.resource.steel}
+            </span>
+          </div>
         </div>
       </div>
     )
