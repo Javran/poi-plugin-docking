@@ -162,11 +162,12 @@ const getShipDetailFuncSelector = createSelector(
           ids.includes(rstId))
 
       const fleetId = fleetPair ? Number(fleetPair[0]) : null
-
       const retObj = {
         ...info,
         fleetId,
-        anchorage: ac.includes(rstId),
+        anchorage:
+          ['normal','shouha'].includes(info.healthState) &&
+          ac.includes(rstId),
         expedition: es.includes(rstId),
       }
 
