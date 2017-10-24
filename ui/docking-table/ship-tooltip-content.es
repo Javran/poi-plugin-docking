@@ -10,14 +10,40 @@ class ShipTooltipContent extends PureComponent {
     const {ship} = this.props
     return (
       <div>
-        <div style={{display: 'flex'}}>
-          <span>
+        <div
+          style={{
+            display: 'flex',
+            width: '16em',
+          }}>
+          <span
+            style={{
+              width: '5em',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+            }}
+          >
             {ship.typeName}
           </span>
-          <span>
-            {ship.name}
-          </span>
-          <span>
+          <div style={{flex: 1, width: '7em', display: 'flex', alignItems: 'baseline'}}>
+            <span
+              style={{
+                flex: 1,
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+              }}
+            >
+              {ship.name}
+            </span>
+            <span style={{fontSize: '70%'}}>{`(${ship.rstId})`}</span>
+          </div>
+          <span
+            style={{
+              fontSize: '80%',
+              marginLeft: '.2em',
+              width: '3.2em',
+            }}>
             {`Lv. ${ship.level}`}
           </span>
         </div>
