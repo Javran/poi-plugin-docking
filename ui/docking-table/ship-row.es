@@ -104,11 +104,13 @@ class ShipRow extends PureComponent {
                */
               ship.docking.ongoing ? (
                 <FontAwesome
+                  style={{marginLeft: '.2em'}}
                   className="icon"
                   name="bath"
                 />
               ) : ship.expedition ? (
                 <FontAwesome
+                  style={{marginLeft: '.2em'}}
                   className="icon"
                   name="compass"
                 />
