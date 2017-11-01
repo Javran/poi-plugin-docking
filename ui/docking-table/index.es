@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { createStructuredSelector } from 'reselect'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
@@ -131,13 +132,40 @@ class DockingTableImpl extends PureComponent {
         </thead>
         <tbody>
           {
-            shipList.map(s => (
-              <ShipRow
-                simple={simple}
-                ship={s}
-                key={s.rstId}
-              />
-            ))
+            // IIFE
+            (() => {
+              const chunks = _.chunk(shipList,10)
+
+              return _.flatMap(
+                chunks,
+                (ships,ind) => {
+                  const shipComponents = ships.map(s => (
+                    <ShipRow
+                      simple={simple}
+                      ship={s}
+                      key={s.rstId}
+                    />
+                  ))
+
+                  /* eslint-disable indent */
+                  return ind+1 === chunks.length ?
+                   shipComponents :
+                   [
+                     ...shipComponents,
+                     <tr key={`sep-${ind}`} >
+                       <td
+                         colSpan={simple ? 3 : 7}
+                         style={{
+                           height: '.4em',
+                           padding: 0,
+                         }}
+                       />
+                     </tr>,
+                   ]
+                  /* eslint-enable indent */
+                }
+              )
+            })()
           }
         </tbody>
       </Table>
