@@ -134,8 +134,10 @@ class DockingTableImpl extends PureComponent {
           {
             // IIFE
             (() => {
+              // break the list into chunks of 10
               const chunks = _.chunk(shipList,10)
 
+              // interleave with separators
               return _.flatMap(
                 chunks,
                 (ships,ind) => {
@@ -147,6 +149,8 @@ class DockingTableImpl extends PureComponent {
                     />
                   ))
 
+                  // adding separator only if the current chunk
+                  // is not the last one
                   if (ind+1 !== chunks.length) {
                     shipComponents.push(
                       <tr key={`sep-${ind}`} >
