@@ -147,22 +147,21 @@ class DockingTableImpl extends PureComponent {
                     />
                   ))
 
-                  /* eslint-disable indent */
-                  return ind+1 === chunks.length ?
-                   shipComponents :
-                   [
-                     ...shipComponents,
-                     <tr key={`sep-${ind}`} >
-                       <td
-                         colSpan={simple ? 3 : 7}
-                         style={{
-                           height: '.4em',
-                           padding: 0,
-                         }}
-                       />
-                     </tr>,
-                   ]
-                  /* eslint-enable indent */
+                  if (ind+1 !== chunks.length) {
+                    shipComponents.push(
+                      <tr key={`sep-${ind}`} >
+                        <td
+                          colSpan={simple ? 3 : 7}
+                          style={{
+                            height: '.4em',
+                            padding: 0,
+                          }}
+                        />
+                      </tr>
+                    )
+                  }
+
+                  return shipComponents
                 }
               )
             })()
