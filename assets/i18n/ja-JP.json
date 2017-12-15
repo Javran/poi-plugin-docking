@@ -4,6 +4,7 @@
     "Desc": "Docking Overview"
   },
   "Simple": "Simple",
+  "HideUnlockedShips": "Hide Unlocked",
   "RepairCost": "Repair Cost",
   "Headers": {
     "Type": "Type",

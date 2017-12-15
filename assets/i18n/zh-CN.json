@@ -4,6 +4,7 @@
     "Desc": "入渠概览"
   },
   "Simple": "简化",
+  "HideUnlockedShips": "隐藏未锁舰船",
   "RepairCost": "维修消耗",
   "Headers": {
     "Type": "舰种",
