@@ -15,6 +15,7 @@ const initState = {
     method: 'dtime',
     reverse: false,
   },
+  hideUnlocked: false,
 }
 
 const tyModify = '@poi-plugin-docking@Modify'

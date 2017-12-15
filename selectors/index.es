@@ -12,6 +12,7 @@ import { sortToFunc } from '../sorter'
 
 import {
   sortSelector,
+  hideUnlockedSelector,
   computePerHp,
   computeHealthState,
   fleetShipIdsSelector,
@@ -20,13 +21,20 @@ import {
 /*
    a list of ships that need docking, NF for non-full HP.
    ship's ordering is unspecified.
+
+   - hideUnlocked is respected here.
  */
 const nfShipIdListSelector = createSelector(
   shipsSelector,
-  sObj =>
-    Object.values(sObj)
-      .filter(s => s.api_ndock_time !== 0)
-      .map(s => s.api_id)
+  hideUnlockedSelector,
+  (sObj, hideUnlocked) =>
+    Object.values(sObj).filter(s =>
+      s.api_ndock_time !== 0 && (
+        hideUnlocked ?
+          s.api_locked !== 0 :
+          true
+      )
+    ).map(s => s.api_id)
 )
 
 const dockingShipIdsSelector = createSelector(

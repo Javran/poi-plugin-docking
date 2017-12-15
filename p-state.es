@@ -1,9 +1,11 @@
 import { ensureDirSync, readJsonSync, writeJsonSync } from 'fs-extra'
 import { join } from 'path-extra'
 
-const stateToPState = ({simple, sort}) => ({
-  $dataVersion: '0.0.1',
-  simple, sort,
+const latestVersion = '0.3.0'
+
+const stateToPState = ({simple, sort, hideUnlocked}) => ({
+  $dataVersion: latestVersion,
+  simple, sort, hideUnlocked,
 })
 
 const getPStateFilePath = () => {
@@ -23,8 +25,25 @@ const savePState = pState => {
 }
 
 const updatePState = oldPState => {
-  if (oldPState.$dataVersion === '0.0.1')
+  if (oldPState.$dataVersion === latestVersion)
     return oldPState
+
+  let newPState = oldPState
+  if (newPState.$dataVersion === '0.0.1') {
+    // 0.0.1 => 0.3.0
+    newPState = {
+      ...newPState,
+      $dataVersion: '0.3.0',
+      // new: whether we should hide unlocked ships
+      hideUnlocked: false,
+    }
+  }
+
+  if (newPState.$dataVersion === latestVersion) {
+    setTimeout(() => savePState(newPState))
+    return newPState
+  }
+
   throw new Error('failed to update the config')
 }
 
