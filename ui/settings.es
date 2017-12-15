@@ -11,6 +11,8 @@ import {
 import { mapDispatchToProps } from '../store'
 import { PTyp } from '../ptyp'
 
+import { __ } from '../tr'
+
 class SettingsImpl extends PureComponent {
   static propTypes = {
     readyFlag: PTyp.bool.isRequired,
@@ -34,7 +36,7 @@ class SettingsImpl extends PureComponent {
               maxWidth: '25em',
             }}
           >
-            Simple Mode
+            {__('SimpleMode')}
           </div>
           <Checkbox
             style={{flex: 1}}

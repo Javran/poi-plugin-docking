@@ -3,7 +3,7 @@
     "Name": "Docking",
     "Desc": "Docking Overview"
   },
-  "Simple": "Simple",
+  "SimpleMode": "Simple Mode",
   "HideUnlockedShips": "Hide Unlocked",
   "RepairCost": "Repair Cost",
   "Headers": {

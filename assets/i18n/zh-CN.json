@@ -3,7 +3,7 @@
     "Name": "入渠概览",
     "Desc": "入渠概览"
   },
-  "Simple": "简化",
+  "SimpleMode": "简化模式",
   "HideUnlockedShips": "隐藏未锁舰船",
   "RepairCost": "维修消耗",
   "Headers": {
