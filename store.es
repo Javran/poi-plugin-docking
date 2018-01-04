@@ -16,6 +16,22 @@ const initState = {
     reverse: false,
   },
   hideUnlocked: false,
+  /*
+     TODO: valid values:
+
+     (note that for the following part, "less than" (lt)
+     means "better" and "greater than" (gt) means "worse")
+
+     - all
+     - lt-chuuha
+       ships that can be anchorage repaired, this means ships
+       that have better than moderate damage.
+     - gt-shouha
+       ships that can only be repaired though docking
+       this means ships that have worse than minor damage.
+
+   */
+  healthFilter: 'all',
 }
 
 const tyModify = '@poi-plugin-docking@Modify'

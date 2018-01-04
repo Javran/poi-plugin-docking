@@ -1,11 +1,11 @@
 import { ensureDirSync, readJsonSync, writeJsonSync } from 'fs-extra'
 import { join } from 'path-extra'
 
-const latestVersion = '0.3.0'
+const latestVersion = '0.4.0'
 
-const stateToPState = ({simple, sort, hideUnlocked}) => ({
+const stateToPState = ({simple, sort, hideUnlocked, healthFilter}) => ({
   $dataVersion: latestVersion,
-  simple, sort, hideUnlocked,
+  simple, sort, hideUnlocked, healthFilter,
 })
 
 const getPStateFilePath = () => {
@@ -36,6 +36,16 @@ const updatePState = oldPState => {
       $dataVersion: '0.3.0',
       // new: whether we should hide unlocked ships
       hideUnlocked: false,
+    }
+  }
+
+  if (newPState.$dataVersion === '0.3.0') {
+    // 0.3.0 => 0.4.0
+    newPState = {
+      ...newPState,
+      $dataVersion: '0.4.0',
+      // new: filter by health state
+      healthFilter: 'all',
     }
   }
 

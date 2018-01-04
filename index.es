@@ -10,8 +10,8 @@ const pluginDidLoad = () => {
     withBoundActionCreators(bac => {
       const pState = loadPState()
       if (pState !== null) {
-        const {simple, sort, hideUnlocked} = pState
-        bac.ready({simple, sort, hideUnlocked})
+        const {simple, sort, hideUnlocked, healthFilter} = pState
+        bac.ready({simple, sort, hideUnlocked, healthFilter})
       } else {
         bac.ready(undefined)
       }
