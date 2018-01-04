@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { RepairCostPanel } from './repair-cost-panel'
 import { sortedNfShipDetailListSelector } from '../selectors'
 import { PTyp } from '../ptyp'
+import { __ } from '../tr'
 
 class InfoPanelImpl extends PureComponent {
   static propTypes = {
@@ -18,7 +19,7 @@ class InfoPanelImpl extends PureComponent {
         }}>
         <RepairCostPanel />
         <div style={{marginLeft: '1em'}}>
-          <span>Count: {shipCount}</span>
+          <span>{__('ShipCount')}: {shipCount}</span>
         </div>
       </div>
     )

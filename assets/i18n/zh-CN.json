@@ -6,6 +6,7 @@
   "SimpleMode": "简化模式",
   "HideUnlockedShips": "隐藏未锁舰船",
   "RepairCost": "维修消耗",
+  "ShipCount": "总数",
   "Headers": {
     "Type": "舰种",
     "Name": "舰名",

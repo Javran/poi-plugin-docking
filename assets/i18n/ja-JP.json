@@ -6,6 +6,7 @@
   "SimpleMode": "Simple Mode",
   "HideUnlockedShips": "Hide Unlocked",
   "RepairCost": "Repair Cost",
+  "ShipCount": "Count",
   "Headers": {
     "Type": "Type",
     "Name": "Name",
