@@ -32,6 +32,11 @@ const hideUnlockedSelector = createSelector(
   ext => ext.hideUnlocked
 )
 
+const healthFilterSelector = createSelector(
+  extSelector,
+  ext => ext.healthFilter
+)
+
 // reference: http://kancolle.wikia.com/wiki/Docking
 /* eslint-disable indent */
 const getDockingFactor = stype =>
@@ -84,6 +89,7 @@ export {
   sortSelector,
   simpleSelector,
   hideUnlockedSelector,
+  healthFilterSelector,
   getDockingFactor,
   computePerHp,
   computeHealthState,
