@@ -13,6 +13,7 @@ import { sortToFunc } from '../sorter'
 import {
   sortSelector,
   hideUnlockedSelector,
+  healthFilterSelector,
   computePerHp,
   computeHealthState,
   fleetShipIdsSelector,
@@ -194,8 +195,27 @@ const nfShipDetailListSelector = createSelector(
     _.compact(rstIds.map(getShipDetail))
 )
 
-const sortedNfShipDetailListSelector = createSelector(
+/*
+   kind of an awkward name, just nfShipDetailListSelector with healthFilter
+   taking into account.
+ */
+const nfShipDetailListWithHealthSelector = createSelector(
   nfShipDetailListSelector,
+  healthFilterSelector,
+  (xs, healthFilter) => {
+    /* eslint-disable indent */
+    const pred =
+      healthFilter === 'all' ? (() => true) :
+      healthFilter === 'lt-chuuha' ? (s => ['normal','shouha'].includes(s.healthState)) :
+      healthFilter === 'gt-shouha' ? (s => !['normal','shouha'].includes(s.healthState)) :
+      (console.error(`invalid healthFilter: ${healthFilter}`), () => true)
+    /* eslint-enable indent */
+    return xs.filter(pred)
+  }
+)
+
+const sortedNfShipDetailListSelector = createSelector(
+  nfShipDetailListWithHealthSelector,
   sortSelector,
   (xs, sort) =>
     sortToFunc(sort)(xs)
