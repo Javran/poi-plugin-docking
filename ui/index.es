@@ -2,7 +2,7 @@ import { join } from 'path-extra'
 import React from 'react'
 
 import { DockingTable } from './docking-table'
-import { RepairCostPanel } from './repair-cost-panel'
+import { InfoPanel } from './info-panel'
 import { ControlPanel } from './control-panel'
 
 const DockingMain = _props => (
@@ -14,7 +14,7 @@ const DockingMain = _props => (
       href={join(__dirname, '..', 'assets', 'docking.css')}
     />
     <ControlPanel />
-    <RepairCostPanel />
+    <InfoPanel />
     <DockingTable />
   </div>
 )

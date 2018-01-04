@@ -17,10 +17,8 @@ const initState = {
   },
   hideUnlocked: false,
   /*
-     TODO: valid values:
-
-     (note that for the following part, "less than" (lt)
-     means "better" and "greater than" (gt) means "worse")
+     note that for the following part, "less than" (lt)
+     means "better" and "greater than" (gt) means "worse"
 
      - all
      - lt-chuuha
