@@ -21,6 +21,12 @@
     "dtime": "Docking Time",
     "per-hp": "Time per HP"
   },
+  "HealthFilter": {
+    "Header": "Health",
+    "all": "All",
+    "lt-chuuha": "≤ Minor Dmg",
+    "gt-shouha": "> Minor Dmg"
+  },
   "Tooltip": {
     "Time": "Time",
     "PerHp": "Per HP"

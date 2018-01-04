@@ -71,7 +71,13 @@ class ControlPanelImpl extends PureComponent {
             padding: 0,
           }}
         >
-          Health: {healthFilter}
+          {
+            (() => {
+              const headerText = __(`HealthFilter.Header`)
+              const valueText = __(`HealthFilter.${healthFilter}`)
+              return `${headerText}: ${valueText}`
+            })()
+          }
         </Button>
         <DropdownButton
           onSelect={sortToggle}

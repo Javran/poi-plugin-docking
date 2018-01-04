@@ -21,6 +21,12 @@
     "dtime": "时长",
     "per-hp": "单位回复时长"
   },
+  "HealthFilter": {
+    "Header": "损害",
+    "all": "全部",
+    "lt-chuuha": "≤小破",
+    "gt-shouha": ">小破"
+  },
   "Tooltip": {
     "Time": "总时长",
     "PerHp": "单位时长"
