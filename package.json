@@ -1,6 +1,6 @@
 {
   "name": "poi-plugin-docking",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Docking Overview",
   "main": "index.es",
   "scripts": {
