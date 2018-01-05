@@ -23,11 +23,11 @@ Few simple filters and sorting methods are implemented:
 
     - **All**: shows all ships regardless of their health state
 
-    - **≤ Minor Dmg**: shows all ships whose health state is better than moderate damaged
-      in other words, this filter gives you ships that can be anchorage-repaired.
+    - **≤ Minor Dmg**: shows all ships whose health state is better than moderate damaged.
+      In other words, this filter gives you ships that can be anchorage-repaired.
 
     - **> Minor Dmg**: shows all moderate damaged / heavily damaged ships.
-      in other words, this filter gives you all ships that cannot be anchorage-repaired
+      In other words, this filter gives you all ships that cannot be anchorage-repaired
 
 - **Sort by Id / Type / Name / Level / HP / Docking Time / Time per HP**
 
