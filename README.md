@@ -29,9 +29,11 @@ Few simple filters and sorting methods are implemented:
     - **> Minor Dmg**: shows all moderate damaged / heavily damaged ships.
       In other words, this filter gives you all ships that cannot be anchorage-repaired
 
+    - Click on the button repeatly to switch between different states
+
 - **Sort by Id / Type / Name / Level / HP / Docking Time / Time per HP**
 
-    - **Time per HP** is the amount of time necessary to recover 1HP when docking
+    - **Time per HP** is the amount of time necessary to recover 1HP when docking.
       Note that total docking time is `30 seconds + HP lost * Time per HP`.
 
     - Selecting the same sorting method causes the order to reverse
