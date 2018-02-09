@@ -56,6 +56,7 @@ class ControlPanelImpl extends PureComponent {
           onClick={this.handleToggleSimple}
           style={{
             marginTop: 0,
+            marginBottom: 4,
             display: 'flex', alignItems: 'baseline',
           }}>
           <FontAwesome
@@ -68,6 +69,7 @@ class ControlPanelImpl extends PureComponent {
           style={{
             width: '10em',
             marginTop: 0,
+            marginBottom: 4,
             padding: 0,
           }}
         >
@@ -81,7 +83,10 @@ class ControlPanelImpl extends PureComponent {
         </Button>
         <DropdownButton
           onSelect={sortToggle}
-          style={{marginTop: 0}}
+          style={{
+            marginTop: 0,
+            marginBottom: 4,
+          }}
           title={__('SortBy',sortDesc)}
           id="plugin-docking-ctrl-sort">
           {
