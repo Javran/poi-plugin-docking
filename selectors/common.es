@@ -37,6 +37,10 @@ const healthFilterSelector = createSelector(
   ext => ext.healthFilter
 )
 
+// TODO: seems to be matching, docking time from store?
+// _.values(getStore().const.$shipTypes).map(d => d.api_scnt / 2)
+// _.values(getStore().const.$shipTypes).map(d => getDockingFactor(d.api_id))
+
 // reference: http://kancolle.wikia.com/wiki/Docking
 /* eslint-disable indent */
 const getDockingFactor = stype =>
