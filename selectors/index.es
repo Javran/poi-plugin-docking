@@ -14,7 +14,7 @@ import {
   sortSelector,
   hideUnlockedSelector,
   healthFilterSelector,
-  computePerHp,
+  computePerHpFuncSelector,
   computeHealthState,
   fleetShipIdsSelector,
 } from './common'
@@ -56,7 +56,8 @@ const getShipDetailFuncSelectorS0 = createSelector(
   equipsSelector,
   constSelector,
   dockingShipIdsSelector,
-  (ships, equips, {$ships,$shipTypes}, dockingShipIds) => _.memoize(
+  computePerHpFuncSelector,
+  (ships, equips, {$ships,$shipTypes}, dockingShipIds, computePerHp) => _.memoize(
     rstId => {
       const ship = ships[rstId]
       if (_.isEmpty(ship))
