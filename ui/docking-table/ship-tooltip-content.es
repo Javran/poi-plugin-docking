@@ -76,7 +76,7 @@ class ShipTooltipContent extends PureComponent {
             style={{
               fontSize: '80%',
               marginLeft: '.2em',
-              width: '3.2em',
+              width: '3.5em',
             }}>
             {`Lv. ${ship.level}`}
           </span>
