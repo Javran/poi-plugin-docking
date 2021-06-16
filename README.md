@@ -54,6 +54,10 @@ going to the docking page in game will cause auto-switching to this plugin.
 
 ## Changelog
 
+### 0.4.2
+
+- Fix dropdown button issue.
+
 ### 0.4.1
 
 - Changelog starts from this version.
