@@ -3,12 +3,20 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import {
   ButtonToolbar,
-  Button,
-  DropdownButton,
-  MenuItem,
 } from 'react-bootstrap'
+
+import {
+  ButtonGroup,
+  Button,
+  Menu,
+  MenuItem,
+  Position,
+} from '@blueprintjs/core'
+
 import FontAwesome from 'react-fontawesome'
 import { modifyObject, not } from 'subtender'
+
+import { Popover } from 'views/components/etc/overlay'
 
 import { PTyp } from '../ptyp'
 import { mapDispatchToProps } from '../store'
@@ -45,6 +53,24 @@ class ControlPanelImpl extends PureComponent {
   render() {
     const {hideUnlocked, sort, sortToggle, healthFilter} = this.props
     const sortDesc = sortDescribe(sort,__)
+
+    const menuContent = (
+      <Menu>
+        {
+          sortMethods.map(name => {
+            const isCurrent = name === sort.method
+            return (
+              <MenuItem
+                key={name}
+                text={isCurrent ? sortDesc : __(`SorterDesc.${name}`)}
+                onClick={() => sortToggle(name)}
+              />
+            )
+          })
+        }
+      </Menu>
+    )
+
     return (
       <ButtonToolbar
         style={{
@@ -81,26 +107,14 @@ class ControlPanelImpl extends PureComponent {
             })()
           }
         </Button>
-        <DropdownButton
-          onSelect={sortToggle}
-          style={{
-            marginTop: 0,
-            marginBottom: 4,
-          }}
-          title={__('SortBy',sortDesc)}
-          id="plugin-docking-ctrl-sort">
-          {
-            sortMethods.map(name => {
-              const isCurrent = name === sort.method
-              return (
-                <MenuItem
-                  key={name} eventKey={name}>
-                  {isCurrent ? sortDesc : __(`SorterDesc.${name}`)}
-                </MenuItem>
-              )
-            })
-          }
-        </DropdownButton>
+        <Popover
+          content={menuContent}
+          position={Position.BOTTOM}
+        >
+          <Button>
+            {__('SortBy',sortDesc)}
+          </Button>
+        </Popover>
       </ButtonToolbar>
     )
   }
