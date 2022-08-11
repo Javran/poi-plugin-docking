@@ -41,6 +41,6 @@
     "mocha": "^3.3.0"
   },
   "dependencies": {
-    "subtender": "^0.12.1"
+    "subtender": "^0.15.0"
   }
 }
